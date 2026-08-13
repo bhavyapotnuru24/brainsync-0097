@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>FocusFlow | Productivity OS</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="logo">
+            <div class="logo-icon">✦</div>
+            <div>
+                <h2>FocusFlow</h2>
+                <span>PRODUCTIVITY OS</span>
+            </div>
+        </div>
+
+        <nav class="side-nav">
+
+            <a href="#dashboard" class="nav-item active">
+                <span>⌂</span>
+                Dashboard
+            </a>
+
+            <a href="#tasks" class="nav-item">
+                <span>✓</span>
+                Tasks
+                <b id="taskBadge">0</b>
+            </a>
+
+            <a href="#goals" class="nav-item">
+                <span>◎</span>
+                Goals
+            </a>
+
+            <a href="#focus" class="nav-item">
+                <span>◷</span>
+                Focus Timer
+            </a>
+
+            <a href="#analytics" class="nav-item">
+                <span>⌁</span>
+                Analytics
+            </a>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+
+            <div class="quote-box">
+                <span>✦ DAILY MOTIVATION</span>
+                <p>
+                    "Small progress is still progress."
+                </p>
+            </div>
+
+            <div class="profile">
+                <div class="avatar">B</div>
+                <div>
+                    <strong>Bhavya</strong>
+                    <small>Student</small>
+                </div>
+                <span>•••</span>
+            </div>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN -->
+    <main class="main">
+
+        <!-- TOPBAR -->
+        <header class="topbar">
+
+            <div class="mobile-logo">
+                ✦ FocusFlow
+            </div>
+
+            <div class="search">
+                <span>⌕</span>
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Search tasks..."
+                >
+                <kbd>⌘ K</kbd>
+            </div>
+
+            <div class="top-actions">
+
+                <button class="icon-btn" title="Notifications">
+                    ♧
+                </button>
+
+                <button class="icon-btn" onclick="toggleTheme()" title="Theme">
+                    ◐
+                </button>
+
+                <div class="mini-avatar">
+                    B
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- DASHBOARD -->
+        <section id="dashboard" class="page">
+
+            <div class="welcome">
+
+                <div>
+                    <span class="eyebrow">THURSDAY • AUGUST 13, 2026</span>
+
+                    <h1>
+                        Good morning, Bhavya
+                        <span class="wave">👋</span>
+                    </h1>
+
+                    <p>
+                        Let's turn your plans into progress today.
+                    </p>
+                </div>
+
+                <button class="primary-btn" onclick="openTaskModal()">
+                    <span>＋</span> New Task
+                </button>
+
+            </div>
+
+
+            <!-- STATS -->
+            <div class="stats-grid">
+
+                <div class="stat-card purple">
+
+                    <div class="stat-top">
+                        <span>OPEN TASKS</span>
+                        <div class="stat-icon">✓</div>
+                    </div>
+
+                    <h2 id="totalTasks">0</h2>
+
+                    <p>
+                        <span class="positive">↑ Keep going</span>
+                    </p>
+
+                </div>
+
+
+                <div class="stat-card green">
+
+                    <div class="stat-top">
+                        <span>COMPLETED</span>
+                        <div class="stat-icon">✓</div>
+                    </div>
+
+                    <h2 id="completedTasks">0</h2>
+
+                    <p>
+                        <span class="positive">✓ Great work</span>
+                    </p>
+
+                </div>
+
+
+                <div class="stat-card blue">
+
+                    <div class="stat-top">
+                        <span>FOCUS TIME</span>
+                        <div class="stat-icon">◷</div>
+                    </div>
+
+                    <h2 id="focusHours">0.0h</h2>
+
+                    <p>
+                        Today's focus
+                    </p>
+
+                </div>
+
+
+                <div class="stat-card orange">
+
+                    <div class="stat-top">
+                        <span>STREAK</span>
+                        <div class="stat-icon">🔥</div>
+                    </div>
+
+                    <h2 id="streak">1 day</h2>
+
+                    <p>
+                        Personal best
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- DASHBOARD GRID -->
+            <div class="dashboard-grid">
+
+                <!-- TASKS -->
+                <div class="panel tasks-panel" id="tasks">
+
+                    <div class="panel-header">
+
+                        <div>
+                            <h2>Today's Tasks</h2>
+                            <p>Stay on top of your priorities</p>
+                        </div>
+
+                        <button
+                            class="text-btn"
+                            onclick="openTaskModal()"
+                        >
+                            + Add Task
+                        </button>
+
+                    </div>
+
+
+                    <div class="filters">
+
+                        <button class="filter active" onclick="filterTasks('all', this)">
+                            All
+                        </button>
+
+                        <button class="filter" onclick="filterTasks('high', this)">
+                            High
+                        </button>
+
+                        <button class="filter" onclick="filterTasks('medium', this)">
+                            Medium
+                        </button>
+
+                        <button class="filter" onclick="filterTasks('low', this)">
+                            Low
+                        </button>
+
+                    </div>
+
+
+                    <div id="taskList" class="task-list">
+                    </div>
+
+                </div>
+
+
+                <!-- PRODUCTIVITY -->
+                <div class="panel productivity-panel" id="analytics">
+
+                    <div class="panel-header">
+
+                        <div>
+                            <h2>Productivity</h2>
+                            <p>Your weekly activity</p>
+                        </div>
+
+                        <select id="chartSelect">
+                            <option>This Week</option>
+                            <option>This Month</option>
+                        </select>
+
+                    </div>
+
+                    <div class="chart">
+
+                        <div class="chart-bars">
+
+                            <div class="bar-item">
+                                <div class="bar" style="height:45%"></div>
+                                <span>Mon</span>
+                            </div>
+
+                            <div class="bar-item">
+                                <div class="bar" style="height:70%"></div>
+                                <span>Tue</span>
+                            </div>
+
+                            <div class="bar-item">
+                                <div class="bar active-bar" style="height:90%"></div>
+                                <span>Wed</span>
+                            </div>
+
+                            <div class="bar-item">
+                                <div class="bar" style="height:55%"></div>
+                                <span>Thu</span>
+                            </div>
+
+                            <div class="bar-item">
+                                <div class="bar" style="height:78%"></div>
+                                <span>Fri</span>
+                            </div>
+
+                            <div class="bar-item">
+                                <div class="bar" style="height:35%"></div>
+                                <span>Sat</span>
+                            </div>
+
+                            <div class="bar-item">
+                                <div class="bar" style="height:60%"></div>
+                                <span>Sun</span>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="chart-footer">
+                        <div>
+                            <strong>72%</strong>
+                            <span>Weekly goal</span>
+                        </div>
+
+                        <div>
+                            <strong>+18%</strong>
+                            <span>vs last week</span>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- LOWER GRID -->
+            <div class="lower-grid">
+
+                <!-- GOALS -->
+                <div class="panel" id="goals">
+
+                    <div class="panel-header">
+
+                        <div>
+                            <h2>Goals</h2>
+                            <p>Keep your eyes on the bigger picture</p>
+                        </div>
+
+                        <button class="dots">•••</button>
+
+                    </div>
+
+                    <div class="goal">
+
+                        <div class="goal-icon purple-icon">
+                            💻
+                        </div>
+
+                        <div class="goal-info">
+
+                            <div class="goal-title">
+                                <strong>Master DSA</strong>
+                                <span>65%</span>
+                            </div>
+
+                            <div class="progress">
+                                <div style="width:65%"></div>
+                            </div>
+
+                            <small>13 of 20 topics completed</small>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="goal">
+
+                        <div class="goal-icon blue-icon">
+                            🤖
+                        </div>
+
+                        <div class="goal-info">
+
+                            <div class="goal-title">
+                                <strong>AI/ML Project</strong>
+                                <span>40%</span>
+                            </div>
+
+                            <div class="progress">
+                                <div style="width:40%"></div>
+                            </div>
+
+                            <small>Prototype in progress</small>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- FOCUS TIMER -->
+                <div class="panel focus-panel" id="focus">
+
+                    <div class="panel-header">
+
+                        <div>
+                            <h2>Focus Mode</h2>
+                            <p>Deep work. Zero distractions.</p>
+                        </div>
+
+                        <span class="live">
+                            ● LIVE
+                        </span>
+
+                    </div>
+
+                    <div class="timer">
+
+                        <div class="timer-ring">
+
+                            <div class="timer-inner">
+
+                                <span id="timer">25:00</span>
+
+                                <small>FOCUS</small>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="timer-controls">
+
+                        <button onclick="startTimer()" id="startBtn">
+                            ▶ Start
+                        </button>
+
+                        <button onclick="resetTimer()">
+                            ↻ Reset
+                        </button>
+
+                    </div>
+
+                    <div class="timer-modes">
+
+                        <button class="mode active" onclick="setTimer(25, this)">
+                            25 min
+                        </button>
+
+                        <button class="mode" onclick="setTimer(5, this)">
+                            5 min
+                        </button>
+
+                        <button class="mode" onclick="setTimer(50, this)">
+                            50 min
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<!-- TASK MODAL -->
+
+<div id="taskModal" class="modal">
+
+    <div class="modal-box">
+
+        <button class="modal-close" onclick="closeTaskModal()">
+            ×
+        </button>
+
+        <span class="eyebrow">NEW TASK</span>
+
+        <h2>Create a Task</h2>
+
+        <p>Add something you want to accomplish.</p>
+
+        <form id="taskForm">
+
+            <label>
+                Task Name
+                <input
+                    type="text"
+                    id="taskName"
+                    placeholder="e.g. Complete DBMS assignment"
+                    required
+                >
+            </label>
+
+            <label>
+                Category
+                <select id="taskCategory">
+                    <option>Study</option>
+                    <option>Project</option>
+                    <option>Personal</option>
+                    <option>Other</option>
+                </select>
+            </label>
+
+            <label>
+                Priority
+                <select id="taskPriority">
+                    <option value="high">High</option>
+                    <option value="medium" selected>Medium</option>
+                    <option value="low">Low</option>
+                </select>
+            </label>
+
+            <button class="primary-btn" type="submit">
+                Create Task
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
